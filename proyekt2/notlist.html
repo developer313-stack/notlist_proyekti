@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+    <title>Notelist</title>
+</head>
+<style>
+   .container{
+       background:#f8f9fd;
+       padding-top:10px;
+       padding-bottom: 5px;
+   }
+   .title{
+       text-align: center;
+       padding-bottom: 30px;
+   }
+   li{
+       color:black;
+       background:#e7ebe4;
+       padding:10px;
+       margin-top:3px;
+       list-style-type: none;
+       display: flex;
+       justify-content:space-between;
+       align-items: center;
+       overflow:hidden;
+   }
+   #result{
+       padding-top:10px;
+       padding-bottom: 10px;
+   }
+#null{
+    display:none;
+    align-items: center;
+    text-align: center;
+       height:20px;
+}
+#buttons{
+    display:flex;
+    width:100%;
+    height:70px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+button{
+    color:white;
+}
+#search-input{
+    display:none;
+}
+.search-area>i{
+    margin-left:10px;
+    font-size:25px;
+   
+}
+.search-area{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+}
+#search{
+}
+#header{
+    display:none;
+}
+.card{
+    border: 0;
+}
+.fa-trash{
+  color:red;
+  font-size:20px;
+}
+</style>
+<body>
+    <div class="container col-12">
+        <div class="title"><h3>Qeydlər</h3></div>
+      <div class="form col-12">
+        <input id="input" type="text" class="form-control col-6">
+        <div id="buttons">
+        <button id="btn" class="btn btn-success  mt-2">Əlavə et</button><button id="btn-2" class="btn btn-danger mt-2">Axtar</button>
+        </div>
+        <alert id="null" class="alert alert-danger mt-3"></alert>
+      </div>
+    </div>
+    <div class="container col-12">
+    <div class="card-header" id="header">
+        <div class="search-area">
+            <input id="search" class="form-control" type="text"><i onclick="find()" class="fa fa-search"></i>
+        </div>
+    </div>
+    <div class="card-body">
+        <div id="result" class="notes">
+        </div>
+    </div>
+</div>
+   
+</body>
+<script>
+    var input=document.getElementById("input");
+    var btn=document.getElementById("btn");
+    var result=document.getElementById("result");
+    var empty=document.getElementById("null");
+    var input=document.getElementById("input");
+     var list=document.getElementsByClassName("list");
+    btn.addEventListener("click",function(){
+       if(input.value==""){
+           empty.style.display="flex";
+           empty.innerHTML="Birşeylər yazın!"
+       }else{
+           var li=document.createElement("li");
+        li.classList.add("list");
+           li.innerHTML=input.value + `<i onclick="deleteItem()" class="fa fa-trash">`;
+           empty.innerHTML="";
+           empty.style.display="none";
+           result.appendChild(li);
+           input.value="";
+           for(var i=0;i<list.length;i++){
+         if(list[i].textContent.includes(input.value)){
+             console.log("bu qeyd var")
+         }else{
+             
+         }
+      }
+       }
+
+    })
+    function find(){
+        var deyer=document.getElementById("search");
+     var list=document.getElementsByClassName("list");
+     var bos=document.getElementById("null");
+      for(var i=0;i<list.length;i++){
+          if(list[i].textContent.includes(deyer.value)){
+             list[i].style.display="block";
+             bos.style.display="none";
+          }else{
+              list[i].style.display="none";
+              bos.innerHTML="Axtarisa uygun netice tapilmadi";
+              bos.style.display="flex"
+          }
+      }
+    }
+
+    var btn2=document.getElementById("btn-2");
+    var search=document.getElementById("header");
+    var inp=document.getElementById("search");
+    btn2.addEventListener("click",function(){
+      if(search.style.display=="none"){
+          search.style.display="block"
+      }else{
+          search.style.display="none";
+          inp.value="";
+      }
+    })
+
+    function deleteItem(){
+var items=document.querySelectorAll(".fa-trash");
+for(let i=0;i<items.length;i++){
+    items[i].addEventListener("click",function(){
+        items[i].parentElement.remove();
+    })
+}
+    }
+</script>
+</html>
